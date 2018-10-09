@@ -2,7 +2,6 @@ import numpy as np
 import gym
 from actor_critic import A2C
 from dqn import DQN
-from demo import DQNAgent
 
 EPISODES = 50
 
