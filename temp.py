@@ -3,7 +3,7 @@ import gym
 from actor_critic import A2C
 from dqn import DQN
 
-EPISODES = 50
+EPISODES = 300
 
 
 if __name__ == '__main__':
@@ -20,13 +20,12 @@ if __name__ == '__main__':
             #env.render()
             action = agent.act(state)
             next_state, reward, done, _ = env.step(action)
-            reward = reward if not done else -10
+            #reward = reward if not done else -10
             #next_state = next_state.reshape((1,-1))
-            agent.remember(state, action,reward, next_state, done)
+            agent.remember(state, action, reward, next_state, done)
+            agent.fit(state, action, reward, next_state, done)
             state = next_state
 
             if done:
                 print("episode: {}/{}, score: {}".format(e, EPISODES, t))
                 break
-            if len(agent.memory)>32:
-                agent.replay(32)

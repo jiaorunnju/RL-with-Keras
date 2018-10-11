@@ -6,6 +6,7 @@ from tensorflow import keras
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.layers import Dense
 from tensorflow.keras import Sequential
+
 import gym
 EPISODES = 60
 
