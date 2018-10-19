@@ -1,4 +1,4 @@
-## Reinforcementlearning With Tensorflow
+## Reinforcement Learning With Tensorflow
 
 ### Introduction
 This is a repository with simple reinforcement learning algorithms, mainly
