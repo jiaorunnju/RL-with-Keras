@@ -27,7 +27,7 @@ class DQN:
 
         # Control the frequency that updates the target network
         self.counter = 0
-        self.replace_duration = 30
+        self.replace_duration = 50
 
     def _build_model(self):
         """
@@ -38,8 +38,8 @@ class DQN:
         with tf.variable_scope("act_net"):
             self.act_x = tf.placeholder(tf.float32, (None, self.state_size))
             self.target_y = tf.placeholder(tf.float32, (None, self.action_size))
-            act_out = tf.layers.Dense(12, activation=tf.nn.relu).apply(self.act_x)
-            act_out = tf.layers.Dense(12, activation=tf.nn.relu).apply(act_out)
+            act_out = tf.layers.Dense(24, activation=tf.nn.relu).apply(self.act_x)
+            act_out = tf.layers.Dense(24, activation=tf.nn.relu).apply(act_out)
             act_out = tf.layers.Dense(self.action_size).apply(act_out)
             self.act_net = act_out
 
@@ -50,8 +50,8 @@ class DQN:
         # Define the target network
         with tf.variable_scope("target_net"):
             self.target_x = tf.placeholder(tf.float32, (None, self.state_size))
-            target_out = tf.layers.Dense(12, activation=tf.nn.relu).apply(self.target_x)
-            target_out = tf.layers.Dense(12, activation=tf.nn.relu).apply(target_out)
+            target_out = tf.layers.Dense(24, activation=tf.nn.relu).apply(self.target_x)
+            target_out = tf.layers.Dense(24, activation=tf.nn.relu).apply(target_out)
             target_out = tf.layers.Dense(self.action_size).apply(target_out)
             self.target_net = target_out
 
@@ -95,7 +95,7 @@ class DQN:
         self.counter += 1
         if self.counter > self.replace_duration:
             self.sess.run(self.target_replace_op)
-            self.counter -= self.replace_duration
+            self.counter = 0
         minibatch = random.sample(self.memory, batch_size)
         states, actions, rewards, next_states, done = zip(*minibatch)
         states = np.array(states)
@@ -106,7 +106,7 @@ class DQN:
         target = rewards
 
         # Compute target with target network
-        target[~done] += self.gamma * self.sess.run(tf.reduce_max(self.target_net, reduction_indices=[1]), feed_dict={self.target_x: next_states[~done]})
+        target[~done] += self.gamma * self.sess.run(tf.reduce_max(self.target_net, reduction_indices=[1]), feed_dict= {self.target_x: next_states[~done]})
         present = self.sess.run(self.act_net, feed_dict={self.act_x: states})
         present[range(batch_size), actions] = target
 

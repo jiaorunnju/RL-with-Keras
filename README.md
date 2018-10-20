@@ -10,8 +10,12 @@ All of the algorithms are implemented with [Tensorflow](https://www.tensorflow.o
 ### Working Progress
 
 - DQN (done)
-- Actor-Critic with discrete action space (working)
+- Actor-Critic with discrete action space (done)
 - DDPG (to do)
+
+### Problems
+Still not so stable when training, although it uses target network. Maybe
+the network structure should be carefully tuned?
 
 ### Materials
 
