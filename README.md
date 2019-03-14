@@ -11,7 +11,7 @@ All of the algorithms are implemented with [Tensorflow](https://www.tensorflow.o
 
 - DQN (done)
 - Actor-Critic with discrete action space (done)
-- DDPG (to do)
+- ppo (to do)
 
 ### Problems
 Still not so stable when training, although it uses target network. Maybe
